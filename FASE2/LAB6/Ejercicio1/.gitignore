@@ -1,0 +1,54 @@
+# ======================
+# GENERAL
+# ======================
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+
+# ======================
+# IDE (NO SUBIR)
+# ======================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ======================
+# FLUTTER / DART
+# ======================
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# ======================
+# BUILD (NO SUBIR)
+# ======================
+build/
+**/build/
+
+# ======================
+# ANDROID BUILD OUTPUTS
+# ======================
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ======================
+# iOS BUILD OUTPUTS
+# ======================
+/ios/Flutter/.last_build_id
+
+# ======================
+# COVERAGE
+# ======================
+coverage/
+
+# ======================
+# OPCIONAL (VS CODE)
+# ======================
+#.vscode/
