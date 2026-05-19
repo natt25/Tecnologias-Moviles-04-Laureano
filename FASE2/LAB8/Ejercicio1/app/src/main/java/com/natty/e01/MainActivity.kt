@@ -1,5 +1,6 @@
 package com.natty.e01
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,9 +14,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var edtCarrera: EditText
     private lateinit var edtCurso: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnVerEstudiantes: Button
 
-    private val database = FirebaseDatabase.getInstance()
-    private val referencia = database.getReference("estudiantes")
+    private val referencia = FirebaseDatabase.getInstance().getReference("estudiantes")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +26,15 @@ class MainActivity : AppCompatActivity() {
         edtCarrera = findViewById(R.id.edtCarrera)
         edtCurso = findViewById(R.id.edtCurso)
         btnGuardar = findViewById(R.id.btnGuardar)
+        btnVerEstudiantes = findViewById(R.id.btnVerEstudiantes)
 
         btnGuardar.setOnClickListener {
             guardarEstudiante()
+        }
+
+        btnVerEstudiantes.setOnClickListener {
+            val intent = Intent(this, EstudiantesActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -48,15 +55,11 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val estudiante = Estudiante(
-            nombre = nombre,
-            carrera = carrera,
-            curso = curso
-        )
+        val estudiante = Estudiante(nombre, carrera, curso)
 
         referencia.child(id).setValue(estudiante)
             .addOnSuccessListener {
-                Toast.makeText(this, "Estudiante guardado correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Estudiante guardado", Toast.LENGTH_SHORT).show()
                 limpiarCampos()
             }
             .addOnFailureListener {

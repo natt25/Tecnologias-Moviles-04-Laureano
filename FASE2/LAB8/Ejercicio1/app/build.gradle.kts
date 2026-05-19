@@ -46,4 +46,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.google.firebase:firebase-database-ktx:21.0.0")
 }
