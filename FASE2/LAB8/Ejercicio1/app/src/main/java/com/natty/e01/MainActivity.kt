@@ -1,14 +1,14 @@
 package com.natty.e01
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     private lateinit var edtNombre: EditText
     private lateinit var edtCarrera: EditText
@@ -29,16 +29,15 @@ class MainActivity : AppCompatActivity() {
         btnVerEstudiantes = findViewById(R.id.btnVerEstudiantes)
 
         btnGuardar.setOnClickListener {
-            guardarEstudiante()
+            crearEstudiante()
         }
 
         btnVerEstudiantes.setOnClickListener {
-            val intent = Intent(this, EstudiantesActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, EstudiantesActivity::class.java))
         }
     }
 
-    private fun guardarEstudiante() {
+    private fun crearEstudiante() {
         val nombre = edtNombre.text.toString().trim()
         val carrera = edtCarrera.text.toString().trim()
         val curso = edtCurso.text.toString().trim()
@@ -55,21 +54,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val estudiante = Estudiante(nombre, carrera, curso)
+        val estudiante = Estudiante(id, nombre, carrera, curso)
 
         referencia.child(id).setValue(estudiante)
             .addOnSuccessListener {
                 Toast.makeText(this, "Estudiante guardado", Toast.LENGTH_SHORT).show()
-                limpiarCampos()
+                edtNombre.setText("")
+                edtCarrera.setText("")
+                edtCurso.setText("")
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun limpiarCampos() {
-        edtNombre.setText("")
-        edtCarrera.setText("")
-        edtCurso.setText("")
     }
 }

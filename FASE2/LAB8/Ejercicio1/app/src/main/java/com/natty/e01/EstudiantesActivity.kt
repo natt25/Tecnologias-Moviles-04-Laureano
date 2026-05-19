@@ -1,8 +1,8 @@
 package com.natty.e01
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -10,12 +10,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class EstudiantesActivity : AppCompatActivity() {
+class EstudiantesActivity : Activity() {
 
     private lateinit var recyclerEstudiantes: RecyclerView
     private lateinit var adapter: EstudianteAdapter
-    private val listaEstudiantes = ArrayList<Estudiante>()
 
+    private val lista = ArrayList<Estudiante>()
     private val referencia = FirebaseDatabase.getInstance().getReference("estudiantes")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class EstudiantesActivity : AppCompatActivity() {
 
         recyclerEstudiantes = findViewById(R.id.recyclerEstudiantes)
 
-        adapter = EstudianteAdapter(listaEstudiantes)
+        adapter = EstudianteAdapter(lista, referencia)
 
         recyclerEstudiantes.layoutManager = LinearLayoutManager(this)
         recyclerEstudiantes.adapter = adapter
@@ -35,13 +35,24 @@ class EstudiantesActivity : AppCompatActivity() {
     private fun leerEstudiantes() {
         referencia.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                listaEstudiantes.clear()
+                lista.clear()
 
                 for (dato in snapshot.children) {
-                    val estudiante = dato.getValue(Estudiante::class.java)
 
-                    if (estudiante != null) {
-                        listaEstudiantes.add(estudiante)
+                    if (dato.hasChildren()) {
+                        val id = dato.child("id").getValue(String::class.java) ?: dato.key ?: ""
+                        val nombre = dato.child("nombre").getValue(String::class.java) ?: ""
+                        val carrera = dato.child("carrera").getValue(String::class.java) ?: ""
+                        val curso = dato.child("curso").getValue(String::class.java) ?: ""
+
+                        val estudiante = Estudiante(
+                            id = id,
+                            nombre = nombre,
+                            carrera = carrera,
+                            curso = curso
+                        )
+
+                        lista.add(estudiante)
                     }
                 }
 

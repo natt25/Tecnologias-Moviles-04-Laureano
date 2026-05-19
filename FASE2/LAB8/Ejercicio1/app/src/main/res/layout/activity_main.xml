@@ -21,7 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombre"
-        android:inputType="textPersonName"
         android:layout_marginBottom="12dp" />
 
     <EditText
@@ -29,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Carrera"
-        android:inputType="text"
         android:layout_marginBottom="12dp" />
 
     <EditText
@@ -37,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Curso"
-        android:inputType="text"
         android:layout_marginBottom="20dp" />
 
     <Button
@@ -51,7 +48,12 @@
         android:id="@+id/btnVerEstudiantes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ver estudiantes registrados" />
+        android:text="Mostrar estudiantes" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <TextView
         android:layout_width="match_parent"
@@ -59,7 +61,6 @@
         android:text="Natty Laureano"
         android:textSize="14sp"
         android:textColor="#555555"
-        android:gravity="left"
-        android:paddingTop="16dp" />
+        android:gravity="start" />
 
 </LinearLayout>
